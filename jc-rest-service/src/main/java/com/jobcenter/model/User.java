@@ -1,19 +1,23 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 public class User {
 
-    private long id;
+    @Id
+    private String id;
+
     private String email;
     private String password;
     private String name;
     private String phone;
     private Role role;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

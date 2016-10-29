@@ -1,5 +1,7 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,9 @@ import java.util.List;
  */
 public class JobInterview {
 
+    @Id
+    private String id;
+
     private JobApplication jobApplication;
     private List<User> interviewers;
     private String notes;
@@ -15,6 +20,14 @@ public class JobInterview {
 
     private List<ScaledSkill> scaledSkills;
     private int intervieweeRank;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public JobApplication getJobApplication() {
         return jobApplication;

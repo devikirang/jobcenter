@@ -7,6 +7,7 @@ import com.jobcenter.model.User;
  */
 public interface UserService {
 
-    public User getUser(long id);
+    public User findUserByEmail(String email);
 
+    User registerUser(User userData) throws BusinessException;
 }

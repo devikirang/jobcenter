@@ -1,12 +1,25 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * Created on 10/29/2016.
  */
 public class JobLocation {
+
+    @Id
+    private String id;
     private String address;
     private String city;
     private String zipCode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getAddress() {
         return address;

@@ -1,13 +1,25 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 /**
  * This class represents interviewee Skill level.
  */
 public class ScaledSkill {
 
+    @Id
+    private String id;
     private User interviewee;
     private Skill skill;
     private int scale;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public User getInterviewee() {
         return interviewee;

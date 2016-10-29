@@ -1,11 +1,15 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 /**
  * This class represents job posting.
  */
 public class Job {
+    @Id
+    private String id;
     private String jobHeading;
     private String jobDescription;
     private List<Skill> skills;
@@ -13,6 +17,15 @@ public class Job {
     private JobLocation jobLocation;
     private List<JobInterview> jobInterviews;
     private User selectedCandidate;
+    private boolean active;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getJobHeading() {
         return jobHeading;
@@ -68,5 +81,13 @@ public class Job {
 
     public void setSelectedCandidate(User selectedCandidate) {
         this.selectedCandidate = selectedCandidate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

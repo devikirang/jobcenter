@@ -1,5 +1,7 @@
 package com.jobcenter.model;
 
+import org.springframework.data.annotation.Id;
+
 import java.util.List;
 
 /**
@@ -8,16 +10,17 @@ import java.util.List;
  * And also holds comments, notes from the
  */
 public class JobApplication {
-    private long id;
+    @Id
+    private String id;
     private User interviewee;
     private Job job;
     private byte[] resume;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
