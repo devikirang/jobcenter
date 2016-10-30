@@ -2,9 +2,12 @@ package com.jobcenter.service.impl;
 
 import com.jobcenter.dao.JobDao;
 import com.jobcenter.model.Job;
+import com.jobcenter.model.User;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 /**
  * Created on 10/29/2016.
@@ -21,5 +24,10 @@ public class JobServiceImpl implements JobService {
             throw new BusinessException("Job Code already exits. Use different code.");
         }
         return jobDao.save(jobData);
+    }
+
+    @Override
+    public List<Job> findAllJobs() {
+        return jobDao.findAll();
     }
 }

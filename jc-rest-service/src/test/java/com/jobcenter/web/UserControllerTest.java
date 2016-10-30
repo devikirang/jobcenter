@@ -36,7 +36,7 @@ public class UserControllerTest {
     public void testRegisterCandidate() throws Exception {
         userDao.deleteAll();
         String jsonContent = "{\"email\":\"test.interviewee@gmail.com\", \"password\": \"test\", \"name\": \"Devi Kiran\", \"role\": \"INTERVIEWEE\" }";
-        this.mockMvc.perform(post("/register").content(jsonContent).contentType(MediaType.APPLICATION_JSON))
+        this.mockMvc.perform(post("/register").content(jsonContent).contentType(MediaType.APPLICATION_JSON_UTF8))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("result.email").value("test.interviewee@gmail.com"));
     }

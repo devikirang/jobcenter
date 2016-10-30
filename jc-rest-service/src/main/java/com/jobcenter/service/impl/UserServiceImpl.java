@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created on 10/29/2016.
  */
@@ -51,5 +53,10 @@ public class UserServiceImpl implements UserService {
             throw new BusinessException("Invalid login.");
         }
         return user;
+    }
+
+    @Override
+    public List<User> findAllUsers() {
+        return userDao.findAll();
     }
 }

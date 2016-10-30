@@ -20,6 +20,13 @@ public class User {
         this.password = password;
     }
 
+    public User(String email, String password, String name, Role role) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+    }
+
     public String getId() {
         return id;
     }
@@ -74,7 +81,7 @@ public class User {
      * @return boolean value based on user role.
      */
     public boolean isInterviewee() {
-        if (this.getRole() == Role.RECURITER || this.getRole() == Role.MANAGER) {
+        if (this.getRole() == Role.RECURITER || this.getRole() == Role.INTERVIWER) {
             return false;
         }
         return true;

@@ -12,9 +12,6 @@ public class DataResponse<T> {
     }
 
     public DataResponse(T result) {
-        if (this.result == null) {
-            this.error = "No Data.";
-        }
         this.result = result;
     }
 

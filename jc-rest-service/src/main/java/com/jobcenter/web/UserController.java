@@ -1,5 +1,6 @@
 package com.jobcenter.web;
 
+import com.jobcenter.model.Job;
 import com.jobcenter.model.Role;
 import com.jobcenter.model.DataResponse;
 import com.jobcenter.model.User;
@@ -9,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created on 10/29/2016.
@@ -32,6 +36,14 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value = "/allUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public DataResponse<List<User>> allJobs() {
+        logger.info("Getting all users");
+        List<User> allUsers = userService.findAllUsers();
+        return new DataResponse(allUsers);
+    }
+
     @RequestMapping("/user")
     public DataResponse<User> findUserByEmail(@RequestParam(value = "email") String email) {
         return new DataResponse(userService.findUserByEmail(email));
@@ -47,5 +59,10 @@ public class UserController {
             logger.error("Login failed", e);
             return new DataResponse(e.getMessage());
         }
-    }
+    }/*
+
+    @ModelAttribute
+    public void setVaryResponseHeader(HttpServletResponse response) {
+        response.setHeader("Vary", "Accept");
+    }*/
 }
