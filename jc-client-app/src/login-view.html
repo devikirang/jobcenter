@@ -1,0 +1,62 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="lodash.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="login-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+      .login-card {
+        width: 50%;
+      }
+    </style>
+
+    <div class="card login-card">
+      <h1>Login</h1>
+      <span class='error-message'>{{error}}</span>
+      <paper-input label="Email" type="email" value="{{userInput.email}}"></paper-input>
+      <paper-input label="Password" type="password" value="{{userInput.password}}"></paper-input>
+      <paper-button raised on-tap="_performLogin">Login</paper-button>
+      <iron-ajax  id="loginAjax" method="post" url="http://localhost:9090/login" handle-as="json"  content-type="application/json" on-response="_handleLoginResponse" debounce-duration="300"></iron-ajax>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'login-view',
+      properties: {
+        userInput: Object,
+        user: {
+          type: Object,
+          notify: true,
+          readOnly: false
+        },
+        error: String
+      },
+      ready: function() {
+        this.userInput = {};
+      },
+      _performLogin: function() {
+         var loginAjax = this.$.loginAjax;
+         loginAjax.body = JSON.stringify(this.userInput);
+         loginAjax.generateRequest();
+      },
+
+      _handleLoginResponse: function(request){
+        var myResponse = request.detail.response;
+        if (!_.isEmpty(myResponse.result)) {
+            this.set('user', myResponse.result);
+        } else if(!_.isEmpty(myResponse.error)) {
+            this.error = myResponse.error;
+        }
+      }
+    });
+  </script>
+</dom-module>

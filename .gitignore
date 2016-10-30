@@ -1,3 +1,6 @@
 jc-rest-service/.idea/
 jc-rest-service/target/
+js-client-app/bower_components/
+js-client-app/build/
+js-client-app/node_modules/
 *.iml

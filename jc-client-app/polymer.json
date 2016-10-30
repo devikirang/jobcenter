@@ -1,0 +1,21 @@
+{
+  "entrypoint": "/index.html",
+  "shell": "src/login-app.html",
+  "fragments": [
+    "src/login-view.html",
+    "src/register-view.html",
+    "src/alljobs-view.html",
+    "src/appliedjobs-view.html",
+    "src/no-view.html"
+    "src/lowdash.html"
+  ],
+  "sourceGlobs": [
+   "src/**/*",
+   "images/**/*",
+   "bower.json"
+  ],
+  "includeDependencies": [
+    "manifest.json",
+    "bower_components/webcomponentsjs/webcomponents-lite.min.js"
+  ]
+}

@@ -1,0 +1,175 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+<link rel="import" href="../bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="lodash.html">
+<link rel="import" href="my-icons.html">
+
+<dom-module id="jobcenter-app">
+  <template>
+    <style>
+      :host {
+        --app-primary-color: #4285f4;
+        --app-secondary-color: black;
+
+        display: block;
+      }
+
+      app-header {
+        color: #fff;
+        background-color: var(--app-primary-color);
+      }
+      app-header paper-icon-button {
+        --paper-icon-button-ink-color: white;
+      }
+
+      .drawer-list {
+        margin: 0 20px;
+      }
+
+      .drawer-list a {
+        display: block;
+
+        padding: 0 16px;
+
+        text-decoration: none;
+
+        color: var(--app-secondary-color);
+
+        line-height: 40px;
+      }
+      .user-name {
+        padding: 5px;
+        float: right;
+      }
+
+      .drawer-list a.iron-selected {
+        color: black;
+
+        font-weight: bold;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{routeData}}"
+        tail="{{subroute}}"></app-route>
+
+    <app-drawer-layout fullbleed>
+      <!-- Drawer content -->
+      <app-drawer>
+        <app-toolbar>Menu</app-toolbar>
+        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+          <template is="dom-repeat" id="menuList" items="{{menuItems}}">
+            <a name="{{item.routeName}}" href="/{{item.routeName}}">{{item.displayName}}</a>
+          </template>
+        </iron-selector>
+      </app-drawer>
+      <!-- Main content -->
+      <app-header-layout has-scrolling-region>
+
+        <app-header condenses reveals effects="waterfall">
+          <app-toolbar>
+            <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+            <div main-title>Job Center</div>
+          </app-toolbar>
+        </app-header>
+        <div class="user-name">{{loggedInUser.name}}</div>
+        <iron-pages
+            selected="[[page]]"
+            attr-for-selected="name"
+            fallback-selection="no"
+            role="main">
+          <login-view name="login" user="{{loggedInUser}}"></login-view>
+          <register-view name="register"></register-view>
+          <alljobs-view name="alljobs" user="{{loggedInUser}}"></alljobs-view>
+          <appliedjobs-view name="appliedjobs" user="{{loggedInUser}}"></appliedjobs-view>
+          <no-view name="no"></no-view>
+        </iron-pages>
+      </app-header-layout>
+    </app-drawer-layout>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'jobcenter-app',
+
+      properties: {
+        page: {
+          type: String,
+          reflectToAttribute: true,
+          observer: '_pageChanged'
+        },
+        loggedInUser: {
+          type: Object,
+          notify: true,
+          readOnly: false,
+          observer: '_loggedInUserChanged'
+        }
+      },
+
+      observers: [
+        '_routePageChanged(routeData.page)'
+      ],
+
+      ready: function() {
+        this.set('loggedInUser', {});
+        this.menuItems = [
+          {routeName: 'login', displayName: 'Login'},
+          {routeName: 'register', displayName: 'Register'}
+        ];
+      },
+
+      _loggedInUserChanged: function(newUser) {
+        console.log('User changed.');
+        if (newUser.role === "INTERVIEWEE") {
+          this.menuItems = [
+            {routeName: 'alljobs', displayName: 'All Jobs'},
+            {routeName: 'appliedjobs', displayName: 'My Applied Jobs'}
+          ];
+        } else if (newUser.role === "RECURITER") {
+          this.menuItems = [
+            {routeName: 'alljobs', displayName: 'All Jobs'},
+            {routeName: 'postjob', displayName: 'Post New Job'}
+          ];
+        } else if (newUser.role === "INTERVIWER") {
+          this.menuItems = [
+            {routeName: 'alljobs', displayName: 'All Jobs'},
+            {routeName: 'appliedjobs', displayName: 'My Applied Jobs'}
+          ];
+        }
+        if(!_.isEmpty(this.loggedInUser.role)) {
+            this.set('route.path', 'alljobs');
+            this._pageChanged('alljobs');
+        } else {
+            this.set('route.path', 'login');
+            this._pageChanged('login');
+        }
+      },
+
+      _routePageChanged: function(page) {
+        this.page = page || 'login';
+      },
+
+      _pageChanged: function(page) {
+        // Load page import on demand. Show 404 page if fails
+        var resolvedPageUrl = this.resolveUrl(page + '-view' + '.html');
+        this.importHref(resolvedPageUrl, null, this._showPage404, true);
+      },
+
+      _showPage404: function() {
+        this.page = 'no';
+      }
+    });
+  </script>
+</dom-module>

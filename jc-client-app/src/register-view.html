@@ -1,0 +1,42 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="register-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <iron-ajax  auto id="allUsersAjax" method="get" url="http://localhost:9090/allUsers" handle-as="json"  content-type="application/json" on-response="_handleAllUsersResponse" debounce-duration="300"></iron-ajax>
+
+    <div class="card">
+      <h1>Registeration from not done. Use below test users.</h1>
+      <p>
+        Use the below system created users from Database to login.
+        <ul>
+          <template is="dom-repeat" items="{{allUsers}}">          
+            <li>          
+              email: [[item.email]], password: [[item.password]], name: [[item.name]], 
+            </li>
+          </template>
+        </ul>        
+      </p>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'register-view'
+    }, 
+    _handleAllUsersResponse: function(request) {      
+      var myResponse = request.detail.response;
+      if (!_.isEmpty(myResponse.result)) {
+         this.set('allUsers', myResponse);
+      }
+    });
+  </script>
+</dom-module>
