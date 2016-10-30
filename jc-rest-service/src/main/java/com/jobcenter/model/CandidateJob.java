@@ -17,7 +17,6 @@ public class CandidateJob {
     private Date scheduledDate;
     private List<InterviewSession> interviewSessions;
     private String notes;
-    private List<Comment> comments;
     private double candidateScore;
 
     public CandidateJob() {
@@ -75,14 +74,6 @@ public class CandidateJob {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     public List<InterviewSession> getInterviewSessions() {

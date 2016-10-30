@@ -1,6 +1,7 @@
 package com.jobcenter.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,6 +12,7 @@ public class InterviewSession {
 
     private User interviewer;
     private List<SkillRating> skillRatings;
+    private String comments;
 
     public InterviewSession() {
     }
@@ -39,4 +41,11 @@ public class InterviewSession {
         this.skillRatings = skillRatings;
     }
 
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
 }

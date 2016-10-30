@@ -40,10 +40,10 @@ public class JobController {
     @RequestMapping(value = "/allCandidateJobs", method = RequestMethod.POST)
     @ResponseBody
     public DataResponse<List<CandidateJob>> allCandidateJobs(@RequestParam(value = "jobCode") String jobCode,
-                                                             @RequestBody User userData) {
+                                                             @RequestBody User requestedUser) {
         logger.info("Getting all Candidates Job Interview Details for a specific JobCode =" + jobCode);
         try {
-            List<CandidateJob> allCandidateJobs = candidateJobService.findAllCandidateJobsByJobCode(jobCode, userData);
+            List<CandidateJob> allCandidateJobs = candidateJobService.findAllCandidateJobsByJobCode(jobCode, requestedUser);
             return new DataResponse(allCandidateJobs);
         } catch (BusinessException e) {
             return new DataResponse(e.getMessage());

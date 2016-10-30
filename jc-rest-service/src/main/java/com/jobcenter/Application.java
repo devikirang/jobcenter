@@ -51,6 +51,7 @@ public class Application implements CommandLineRunner {
 
         candidateJobDao.deleteAll();
         // Step 1: candidates apply for Job Position.
+        logger.info("Data: Applying for Jobs");
         User candidate1 = this.userDao.findByEmail("test.cadidate1@gmail.com");
         CandidateJob candidateJob1 = this.applyToJob(candidate1, "JAVA0T");
 
@@ -62,13 +63,15 @@ public class Application implements CommandLineRunner {
 
         //Step 2: Interview Sessions for Candidates.
         // All candidates are interviewed by two interviewers. Provided two different ratings.
+        logger.info("Data: Performing Interviews and rating candidates");
         this.performInterviewsForCandidate1(candidateJob1);
         this.performInterviewsForCandidate2(candidateJob2);
         this.performInterviewsForCandidate3(candidateJob3);
+        logger.info("Data: Data setup is done.");
     }
 
     private void registerUsers() throws BusinessException {
-        logger.info("register Users");
+        logger.info("Data: Registering Users");
         userDao.deleteAll();
         userService.registerUser(new User("test.cadidate1@gmail.com", "test", "Devi Kiran", Role.INTERVIEWEE));
         userService.registerUser(new User("test.cadidate2@gmail.com", "test", "Dean", Role.INTERVIEWEE));
@@ -80,7 +83,7 @@ public class Application implements CommandLineRunner {
     }
 
     private void postNewJobsByRecruiter() {
-        logger.info("post New Jobs By Recruiter");
+        logger.info("Data: Posting New Jobs By Recruiter");
         jobDao.deleteAll();
         User recruiter = this.userDao.findByEmail("test.recruiter@jobcorp.com");
         User manager = this.userDao.findByEmail("test.manager@jobcorp.com");
@@ -127,6 +130,8 @@ public class Application implements CommandLineRunner {
                 new SkillRating(Skill.LINUX, 5),
                 new SkillRating(Skill.DATABASE, 5)
         )));
+        session1.setComments("Good fit for the Job");
+
         // Interview Session 2
         InterviewSession session2 = new InterviewSession(interviewer2, new ArrayList(Arrays.asList(
                 new SkillRating(Skill.JAVA, 5),
@@ -136,6 +141,8 @@ public class Application implements CommandLineRunner {
                 new SkillRating(Skill.LINUX, 3),
                 new SkillRating(Skill.DATABASE, 4)
         )));
+        session2.setComments("Performed above average");
+
         candidateJob1.setInterviewSessions(new ArrayList(Arrays.asList(session1, session2)));
         candidateJobDao.save(candidateJob1);
     }
@@ -152,6 +159,7 @@ public class Application implements CommandLineRunner {
                 new SkillRating(Skill.LINUX, 3),
                 new SkillRating(Skill.DATABASE, 2)
         )));
+        session1.setComments("Performed good. Not the best");
         // Interview Session 2
         InterviewSession session2 = new InterviewSession(interviewer2, new ArrayList(Arrays.asList(
                 new SkillRating(Skill.JAVA, 4),
@@ -161,6 +169,7 @@ public class Application implements CommandLineRunner {
                 new SkillRating(Skill.LINUX, 4),
                 new SkillRating(Skill.DATABASE, 3)
         )));
+        session2.setComments("Good fit, overall");
         candidateJob2.setInterviewSessions(new ArrayList(Arrays.asList(session1, session2)));
         candidateJobDao.save(candidateJob2);
     }
@@ -170,22 +179,25 @@ public class Application implements CommandLineRunner {
         User interviewer2 = this.userService.findUserByEmail("test.interviewer2@jobcorp.com");
         // Interview Session 1
         InterviewSession session1 = new InterviewSession(interviewer1, new ArrayList(Arrays.asList(
-                new SkillRating(Skill.JAVA, 4),
+                new SkillRating(Skill.JAVA, 3),
                 new SkillRating(Skill.JAVASCRIPT, 2),
                 new SkillRating(Skill.BEHAVIOURAL_INTERVIEW, 4),
                 new SkillRating(Skill.COMMUNICATION, 4),
                 new SkillRating(Skill.LINUX, 4),
                 new SkillRating(Skill.DATABASE, 3)
         )));
+        session1.setComments("Good in communications. Ok on technical skills.");
         // Interview Session 2
         InterviewSession session2 = new InterviewSession(interviewer2, new ArrayList(Arrays.asList(
-                new SkillRating(Skill.JAVA, 5),
+                new SkillRating(Skill.JAVA, 4),
                 new SkillRating(Skill.JAVASCRIPT, 3),
                 new SkillRating(Skill.BEHAVIOURAL_INTERVIEW, 4),
                 new SkillRating(Skill.COMMUNICATION, 4),
                 new SkillRating(Skill.LINUX, 3),
                 new SkillRating(Skill.DATABASE, 2)
         )));
+        session1.setComments("Average Candidate.");
+
         candidateJob3.setInterviewSessions(new ArrayList(Arrays.asList(session1, session2)));
         candidateJobDao.save(candidateJob3);
     }
