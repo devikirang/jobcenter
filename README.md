@@ -19,7 +19,7 @@ getting-started-installing-spring-boot.html#getting-started-installing-the-cli
 
 ## Application navigation flow.
 * Access application from http://localhost:8080/login
-* Find the registed users list from the Registeration page.
+* Find the registed users list from the Rigister page.
 * Candidate logs in and selects Job from all the jobs. - 'src/java/com.jobcenter.model.Job'
 * The Job has Recruiter contact details and Location details.
 * Candidate applies for a 'Job' postion with Resume. - 'src/java/com.jobcenter.model.JobApplication'
@@ -32,6 +32,6 @@ For time being all the Data is created in 'src/java/com.jobcenter.Application'.
 Assume this data is submitted using UI froms by recruiter, interviewer and interviewee.
 
 ## Algorithm for Skill Ranking or Candidate Score
-* 'src/java/com.jobcenter.model.JobInterview' has method 'getCandidateScore' to calculate the skill score from multiple inteview sessions.
+* 'src/java/com.jobcenter.service.impl.CandidateJobServiceImpl' has method 'calculateCandidateScore' to calculate the skill score from multiple inteview sessions.
 * Higher the score the best candidate for the Job.
-* Login as MANAGER or RECRUITER to see Cadidate Interview score.
+* Login as MANAGER or RECRUITER to see all Cadidates Interview scores and rank.

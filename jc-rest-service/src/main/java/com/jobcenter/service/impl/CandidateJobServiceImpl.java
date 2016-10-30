@@ -23,7 +23,10 @@ public class CandidateJobServiceImpl implements CandidateJobService {
     private JobDao jobDao;
 
     @Override
-    public List<CandidateJob> findAllCandidateJobsByJobCode(String jobCode) throws BusinessException {
+    public List<CandidateJob> findAllCandidateJobsByJobCode(String jobCode, User requestedUser) throws BusinessException {
+        if (requestedUser == null || requestedUser.getRole() != Role.INTERVIWER || requestedUser.getRole() != Role.RECURITER) {
+            throw new BusinessException("Not Authorized.");
+        }
         List<CandidateJob> candidateJobs = candidateJobDao.findAllByJobCode(jobCode);
         Job job = jobDao.findByJobCode(jobCode);
         for (CandidateJob candidateJob : candidateJobs) {
