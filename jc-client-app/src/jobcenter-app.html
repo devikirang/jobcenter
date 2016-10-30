@@ -46,7 +46,7 @@
 
         line-height: 40px;
       }
-      .user-name {
+      .user-data {
         padding: 5px;
         float: right;
       }
@@ -84,7 +84,7 @@
             <div main-title>Job Center</div>
           </app-toolbar>
         </app-header>
-        <div class="user-name">{{loggedInUser.name}}</div>
+        <div class="user-data">{{loggedInUser.name}} - {{loggedInUser.role}}</div>
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
