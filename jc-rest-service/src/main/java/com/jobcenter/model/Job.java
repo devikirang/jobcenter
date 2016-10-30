@@ -10,8 +10,9 @@ import java.util.List;
 public class Job {
     @Id
     private String id;
-    private String jobHeading;
-    private String jobDescription;
+    private String jobCode;
+    private String heading;
+    private String description;
     private List<WeighedSkill> weighedSkills;
     private User recruiter;
     private User manager;
@@ -28,20 +29,28 @@ public class Job {
         this.id = id;
     }
 
-    public String getJobHeading() {
-        return jobHeading;
+    public String getJobCode() {
+        return jobCode;
     }
 
-    public void setJobHeading(String jobHeading) {
-        this.jobHeading = jobHeading;
+    public void setJobCode(String jobCode) {
+        this.jobCode = jobCode;
     }
 
-    public String getJobDescription() {
-        return jobDescription;
+    public String getHeading() {
+        return heading;
     }
 
-    public void setJobDescription(String jobDescription) {
-        this.jobDescription = jobDescription;
+    public void setHeading(String heading) {
+        this.heading = heading;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public List<WeighedSkill> getWeighedSkills() {

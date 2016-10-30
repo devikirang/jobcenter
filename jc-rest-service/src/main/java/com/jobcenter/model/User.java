@@ -12,6 +12,14 @@ public class User {
     private String name;
     private Role role;
 
+    public User() {
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public String getId() {
         return id;
     }
@@ -43,6 +51,7 @@ public class User {
     public void setName(String name) {
         this.name = name;
     }
+
 
     /**
      * Default to interviewee

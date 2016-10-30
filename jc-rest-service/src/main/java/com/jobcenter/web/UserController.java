@@ -19,28 +19,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    @RequestMapping(value = "/registerCandidate", method = RequestMethod.POST)
-    @ResponseBody
-    public DataResponse<User> registerCandidate(@RequestBody User userData) {
-        userData.setRole(Role.INTERVIEWEE);
-        return registerUser(userData);
-    }
 
-    @RequestMapping(value = "/registerRecruiter", method = RequestMethod.POST)
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     @ResponseBody
-    public DataResponse<User> registerRecruiter(@RequestBody User userData) {
-        userData.setRole(Role.RECURITER);
-        return registerUser(userData);
-    }
-
-    @RequestMapping(value = "/registerManager", method = RequestMethod.POST)
-    @ResponseBody
-    public DataResponse<User> registerManager(@RequestBody User userData) {
-        userData.setRole(Role.MANAGER);
-        return registerUser(userData);
-    }
-
-    private DataResponse<User> registerUser(@RequestBody User userData) {
+    public DataResponse<User> registerUser(@RequestBody User userData) {
         try {
             User savedUser = userService.registerUser(userData);
             return new DataResponse(savedUser);
@@ -51,7 +33,19 @@ public class UserController {
     }
 
     @RequestMapping("/user")
-    public User findUserByEmail(@RequestParam(value="email") String email) {
-        return userService.findUserByEmail(email);
+    public DataResponse<User> findUserByEmail(@RequestParam(value = "email") String email) {
+        return new DataResponse(userService.findUserByEmail(email));
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public DataResponse<User> loginUser(@RequestBody User userData) {
+        try {
+            User savedUser = userService.loginUser(userData.getEmail(), userData.getPassword());
+            return new DataResponse(savedUser);
+        } catch (BusinessException e) {
+            logger.error("Login failed", e);
+            return new DataResponse(e.getMessage());
+        }
     }
 }

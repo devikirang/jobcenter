@@ -35,8 +35,8 @@ public class UserControllerTest {
     @Test
     public void testRegisterCandidate() throws Exception {
         userDao.deleteAll();
-        String jsonContent = "{\"email\":\"test.interviewee@gmail.com\", \"password\": \"test\", \"name\": \"Devi Kiran\", \"phone\": \"123-456-7895\" }";
-        this.mockMvc.perform(post("/registerCandidate").content(jsonContent).contentType(MediaType.APPLICATION_JSON))
+        String jsonContent = "{\"email\":\"test.interviewee@gmail.com\", \"password\": \"test\", \"name\": \"Devi Kiran\", \"role\": \"INTERVIEWEE\" }";
+        this.mockMvc.perform(post("/register").content(jsonContent).contentType(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("result.email").value("test.interviewee@gmail.com"));
     }
@@ -44,6 +44,6 @@ public class UserControllerTest {
     @Test
     public void testIntervieweeUser() throws Exception {
         this.mockMvc.perform(get("/user").param("email", "test.interviewee@gmail.com")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("role").value("INTERVIEWEE"));
+                .andExpect(jsonPath("result.role").value("INTERVIEWEE"));
     }
 }
