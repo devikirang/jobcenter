@@ -32,7 +32,6 @@ public class UserControllerTest {
     @Autowired
     private UserDao userDao;
 
-
     @Test
     public void testRegisterCandidate() throws Exception {
         userDao.deleteAll();

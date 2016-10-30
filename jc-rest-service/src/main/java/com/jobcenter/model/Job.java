@@ -12,8 +12,9 @@ public class Job {
     private String id;
     private String jobHeading;
     private String jobDescription;
-    private List<Skill> skills;
+    private List<WeighedSkill> weighedSkills;
     private User recruiter;
+    private User manager;
     private JobLocation jobLocation;
     private List<JobInterview> jobInterviews;
     private User selectedCandidate;
@@ -43,16 +44,24 @@ public class Job {
         this.jobDescription = jobDescription;
     }
 
-    public List<Skill> getSkills() {
-        return skills;
+    public List<WeighedSkill> getWeighedSkills() {
+        return weighedSkills;
     }
 
-    public void setSkills(List<Skill> skills) {
-        this.skills = skills;
+    public void setWeighedSkills(List<WeighedSkill> weighedSkills) {
+        this.weighedSkills = weighedSkills;
     }
 
     public User getRecruiter() {
         return recruiter;
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public void setRecruiter(User recruiter) {
@@ -89,5 +98,9 @@ public class Job {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public double findSkillWeight(Skill skill) {
+        return weighedSkills.stream().filter(weighedSkill -> weighedSkill.getSkill() == skill).findFirst().get().getWeight();
     }
 }

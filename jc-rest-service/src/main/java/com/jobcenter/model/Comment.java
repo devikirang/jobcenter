@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Created by 10/29/2016.
  */
-public class JobInterviewComment {
+public class Comment {
     @Id
     private String id;
 

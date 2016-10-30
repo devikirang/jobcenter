@@ -10,7 +10,6 @@ public class User {
     private String email;
     private String password;
     private String name;
-    private String phone;
     private Role role;
 
     public String getId() {
@@ -43,14 +42,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     /**
