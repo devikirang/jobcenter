@@ -13,7 +13,18 @@ public class WeighedSkill {
 
     public WeighedSkill(Skill skill, double weight) {
         this.skill = skill;
-        this.weight = weight;
+        setWeight(weight);
+    }
+
+    public void setWeight(double weight) {
+        // minimum weight is 1 and max is 5.
+        if (weight <= 0) {
+            this.weight = 1;
+        } else if (weight > 5) {
+            this.weight = 5;
+        } else {
+            this.weight = weight;
+        }
     }
 
     public Skill getSkill() {

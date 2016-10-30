@@ -14,15 +14,31 @@
     <iron-ajax  auto id="allUsersAjax" method="get" url="http://localhost:9090/allUsers" handle-as="json"  content-type="application/json" on-response="_handleAllUsersResponse" debounce-duration="300"></iron-ajax>
 
     <div class="card">
-      <h1>Registeration from not done. Use below test users.</h1>
-      <p>
-        Use the below system created users from Database to login.
+      <h1>Registeration TODO.</h1>
+      <p>        
+        <table>
+          <caption>Use the below system created users from Database to login.</caption>
+          <thead>
+            <tr>
+              <th>email</th>
+              <th>password</th>
+              <th>name</th>
+              <th>role</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template is="dom-repeat" items="{{allUsers}}">          
+              <tr>
+                <td>[[item.email]]</td>
+                <td>[[item.password]]</td>
+                <td>[[item.name]]</td>
+                <td>[[item.role]]</td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
         <ul>
-          <template is="dom-repeat" items="{{allUsers}}">          
-            <li>          
-              email: [[item.email]], password: [[item.password]], name: [[item.name]], 
-            </li>
-          </template>
+          
         </ul>        
       </p>
     </div>
@@ -30,12 +46,12 @@
 
   <script>
     Polymer({
-      is: 'register-view'
-    }, 
-    _handleAllUsersResponse: function(request) {      
-      var myResponse = request.detail.response;
-      if (!_.isEmpty(myResponse.result)) {
-         this.set('allUsers', myResponse);
+      is: 'register-view',
+      _handleAllUsersResponse: function(request) {      
+        var myResponse = request.detail.response;
+        if (!_.isEmpty(myResponse.result)) {
+           this.set('allUsers', myResponse.result);
+        }
       }
     });
   </script>

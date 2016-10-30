@@ -18,7 +18,7 @@ getting-started-installing-spring-boot.html#getting-started-installing-the-cli
 * Start client web app from folder jc-client-app with command `polymer serve`. Runs Web on port 8080
 
 ## Application navigation flow.
-* Access application from http://localhost:8080/
+* Access application from http://localhost:8080/login
 * Find the registed users list from the Registeration page.
 * Candidate logs in and selects Job from all the jobs. - 'src/java/com.jobcenter.model.Job'
 * The Job has Recruiter contact details and Location details.
@@ -27,6 +27,11 @@ getting-started-installing-spring-boot.html#getting-started-installing-the-cli
 * Manager and Interviewers add their interview rate the condidate on his/her skills. Add Comments and notes in - 'src/java/com.jobcenter.model.InterViewSession'
 * Manager can see all the JobInterviews for that Job with each candidates Score at Skill level.
 
-## Algorithm for Ranking
+## Data 
+For time being all the Data is created in 'src/java/com.jobcenter.Application'. 
+Assume this data is submitted using UI froms by recruiter, interviewer and interviewee.
+
+## Algorithm for Skill Ranking or Candidate Score
 * 'src/java/com.jobcenter.model.JobInterview' has method 'getCandidateScore' to calculate the skill score from multiple inteview sessions.
 * Higher the score the best candidate for the Job.
+* Login as MANAGER or RECRUITER to see Cadidate Interview score.

@@ -1,27 +1,14 @@
 package com.jobcenter.model;
 
-import org.springframework.data.annotation.Id;
-
 import java.util.Date;
 
 /**
  * Created by 10/29/2016.
  */
 public class Comment {
-    @Id
-    private String id;
-
     private User interviewee;
     private String comment;
     private Date dateTime;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public User getInterviewee() {
         return interviewee;

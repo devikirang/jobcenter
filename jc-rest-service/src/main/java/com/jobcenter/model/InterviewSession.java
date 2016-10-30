@@ -1,8 +1,6 @@
 package com.jobcenter.model;
 
-import org.springframework.data.annotation.Id;
-
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +10,15 @@ import java.util.List;
 public class InterviewSession {
 
     private User interviewer;
-    private List<CandidateSkill> candidateSkills;
+    private List<SkillRating> skillRatings;
+
+    public InterviewSession() {
+    }
+
+    public InterviewSession(User interviewer, List<SkillRating> skillRatings) {
+        this.interviewer = interviewer;
+        this.skillRatings = skillRatings;
+    }
 
     public User getInterviewer() {
         return interviewer;
@@ -22,12 +28,15 @@ public class InterviewSession {
         this.interviewer = interviewer;
     }
 
-    public List<CandidateSkill> getCandidateSkills() {
-        return candidateSkills;
+    public List<SkillRating> getSkillRatings() {
+        if (skillRatings == null) {
+            skillRatings = new ArrayList();
+        }
+        return skillRatings;
     }
 
-    public void setCandidateSkills(List<CandidateSkill> candidateSkills) {
-        this.candidateSkills = candidateSkills;
+    public void setSkillRatings(List<SkillRating> skillRatings) {
+        this.skillRatings = skillRatings;
     }
 
 }

@@ -1,17 +1,20 @@
 package com.jobcenter.service.impl;
 
 import com.jobcenter.dao.JobDao;
+import com.jobcenter.model.CandidateJob;
 import com.jobcenter.model.Job;
 import com.jobcenter.model.User;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created on 10/29/2016.
  */
+@Service
 public class JobServiceImpl implements JobService {
 
     @Autowired
@@ -30,4 +33,5 @@ public class JobServiceImpl implements JobService {
     public List<Job> findAllJobs() {
         return jobDao.findAll();
     }
+
 }

@@ -17,9 +17,20 @@ public class Job {
     private User recruiter;
     private User manager;
     private JobLocation jobLocation;
-    private List<JobInterview> jobInterviews;
     private User selectedCandidate;
     private boolean active;
+
+    public Job() {
+    }
+
+    public Job(String jobCode, String heading, String description, User recruiter, User manager, JobLocation jobLocation) {
+        this.jobCode = jobCode;
+        this.heading = heading;
+        this.description = description;
+        this.recruiter = recruiter;
+        this.manager = manager;
+        this.jobLocation = jobLocation;
+    }
 
     public String getId() {
         return id;
@@ -83,14 +94,6 @@ public class Job {
 
     public void setJobLocation(JobLocation jobLocation) {
         this.jobLocation = jobLocation;
-    }
-
-    public List<JobInterview> getJobInterviews() {
-        return jobInterviews;
-    }
-
-    public void setJobInterviews(List<JobInterview> jobInterviews) {
-        this.jobInterviews = jobInterviews;
     }
 
     public User getSelectedCandidate() {

@@ -7,18 +7,17 @@ import org.springframework.data.annotation.Id;
  */
 public class JobLocation {
 
-    @Id
-    private String id;
     private String address;
     private String city;
     private String zipCode;
 
-    public String getId() {
-        return id;
+    public JobLocation() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public JobLocation(String address, String city, String zipCode) {
+        this.address = address;
+        this.city = city;
+        this.zipCode = zipCode;
     }
 
     public String getAddress() {
