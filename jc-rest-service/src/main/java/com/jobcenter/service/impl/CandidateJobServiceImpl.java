@@ -1,7 +1,6 @@
 package com.jobcenter.service.impl;
 
 import com.jobcenter.dao.CandidateJobDao;
-import com.jobcenter.dao.JobDao;
 import com.jobcenter.model.*;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.CandidateJobService;
@@ -9,6 +8,7 @@ import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,9 +20,6 @@ public class CandidateJobServiceImpl implements CandidateJobService {
 
     @Autowired
     private CandidateJobDao candidateJobDao;
-
-    @Autowired
-    private JobDao jobDao;
 
     @Autowired
     private JobService jobService;
@@ -37,7 +34,8 @@ public class CandidateJobServiceImpl implements CandidateJobService {
             List<CandidateJob> candidateJobs = candidateJobDao.findAllByJobCode(job.getJobCode());
             for (CandidateJob candidateJob : candidateJobs) {
                 double candidateScore = calculateCandidateScore(candidateJob, job);
-                candidateJob.setCandidateScore(candidateScore);
+                BigDecimal candidateScoreBd = new BigDecimal(candidateScore).setScale(2, BigDecimal.ROUND_HALF_UP);
+                candidateJob.setCandidateScore(Math.round(candidateScoreBd.doubleValue()));
             }
             // Sort by Score
             Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o2.getCandidateScore()).compareTo(o1.getCandidateScore()));
