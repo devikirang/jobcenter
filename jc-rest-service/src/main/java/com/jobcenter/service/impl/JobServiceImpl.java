@@ -7,6 +7,7 @@ import com.jobcenter.model.User;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,4 +35,11 @@ public class JobServiceImpl implements JobService {
         return jobDao.findAll();
     }
 
+    @Override
+    public List<Job> findAllByManager(User manager) {
+        Job job = new Job();
+        job.setManager(new User(manager.getEmail()));
+        List<Job> jobs = jobDao.findAll(Example.of(job));
+        return jobs;
+    }
 }

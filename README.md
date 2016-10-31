@@ -17,21 +17,25 @@ getting-started-installing-spring-boot.html#getting-started-installing-the-cli
 * Start rest service from folder jc-rest-service with command `mvn spring-boot:run`. Runs Tomcat on port 9090
 * Start client web app from folder jc-client-app with command `polymer serve`. Runs Web on port 8080
 
-## Application navigation flow.
+## Application Domain.
 * Access application from http://localhost:8080/login
-* Find the registed users list from the Rigister page.
+* Find the registed users list from the Rigister page. - 'src/java/com.jobcenter.model.User'
 * Candidate logs in and selects Job from all the jobs. - 'src/java/com.jobcenter.model.Job'
-* The Job has Recruiter contact details and Location details.
-* Candidate applies for a 'Job' postion with Resume. - 'src/java/com.jobcenter.model.JobApplication'
-* Recruiter schedules the interview for the Candidate. - 'src/java/com.jobcenter.model.JobInterview'
-* Manager and Interviewers add their interview rate the condidate on his/her skills. Add Comments and notes in - 'src/java/com.jobcenter.model.InterViewSession'
-* Manager can see all the JobInterviews for that Job with each candidates Score at Skill level.
+* The Job has Recruiter contact details and Location details. - 'src/java/com.jobcenter.model.Job'
+* Candidate applies for a 'Job' postion with Resume. - 'src/java/com.jobcenter.model.CandidateJob'
+* Manager and Interviewers add their rating on his/her skills and comments.- 'src/java/com.jobcenter.model.InterviewSession'
 
 ## Data 
 For time being all the Data is created in 'src/java/com.jobcenter.Application'. 
 Assume this data is submitted using UI froms by recruiter, interviewer and interviewee.
 
+## User Role
+* INTERVIEWEE - has access to 'All Jobs', 'My Applied Jobs'
+* RECURITER - has access to 'All Jobs', 'Post New Job'
+* INTERVIWER - has access to 'All Jobs', 'My Interviews'
+* MANAGER - has access to 'All Jobs', 'My Interviews' and 'Interview Results'
+
 ## Algorithm for Skill Ranking or Candidate Score
 * 'src/java/com.jobcenter.service.impl.CandidateJobServiceImpl' has method 'calculateCandidateScore' to calculate the skill score from multiple inteview sessions.
 * Higher the score the best candidate for the Job.
-* Login as MANAGER or RECRUITER to see all Cadidates Interview scores and rank.
+* Login as MANAGER and check 'Interview Results' page for Score and Rank.

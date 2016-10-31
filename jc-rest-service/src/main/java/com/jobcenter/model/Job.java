@@ -1,7 +1,9 @@
 package com.jobcenter.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,8 +19,9 @@ public class Job {
     private User recruiter;
     private User manager;
     private JobLocation jobLocation;
-    private User selectedCandidate;
-    private boolean active;
+
+    @Transient
+    private List<CandidateJob> candidateJobs;
 
     public Job() {
     }
@@ -96,23 +99,15 @@ public class Job {
         this.jobLocation = jobLocation;
     }
 
-    public User getSelectedCandidate() {
-        return selectedCandidate;
-    }
-
-    public void setSelectedCandidate(User selectedCandidate) {
-        this.selectedCandidate = selectedCandidate;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
     public double findSkillWeight(Skill skill) {
         return weighedSkills.stream().filter(weighedSkill -> weighedSkill.getSkill() == skill).findFirst().get().getWeight();
+    }
+
+    public List<CandidateJob> getCandidateJobs() {
+        return candidateJobs;
+    }
+
+    public void setCandidateJobs(List<CandidateJob> candidateJobs) {
+        this.candidateJobs = candidateJobs;
     }
 }

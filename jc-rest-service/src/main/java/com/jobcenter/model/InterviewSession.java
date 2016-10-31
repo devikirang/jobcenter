@@ -11,14 +11,16 @@ import java.util.List;
 public class InterviewSession {
 
     private User interviewer;
+    private User candidate;
     private List<SkillRating> skillRatings;
     private String comments;
 
     public InterviewSession() {
     }
 
-    public InterviewSession(User interviewer, List<SkillRating> skillRatings) {
+    public InterviewSession(User interviewer, User candidate, List<SkillRating> skillRatings) {
         this.interviewer = interviewer;
+        this.candidate = candidate;
         this.skillRatings = skillRatings;
     }
 
@@ -47,5 +49,13 @@ public class InterviewSession {
 
     public void setComments(String comments) {
         this.comments = comments;
+    }
+
+    public User getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(User candidate) {
+        this.candidate = candidate;
     }
 }

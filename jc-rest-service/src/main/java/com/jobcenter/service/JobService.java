@@ -12,4 +12,6 @@ public interface JobService {
     Job createNewJob(Job job) throws BusinessException;
 
     List<Job> findAllJobs();
+
+    List<Job> findAllByManager(User manager);
 }

@@ -94,6 +94,8 @@
           <register-view name="register"></register-view>
           <alljobs-view name="alljobs" user="{{loggedInUser}}"></alljobs-view>
           <appliedjobs-view name="appliedjobs" user="{{loggedInUser}}"></appliedjobs-view>
+          <interviews-view name="interviews" user="{{loggedInUser}}"></interviews-view>
+          <results-view name="results" user="{{loggedInUser}}"></results-view>
           <no-view name="no"></no-view>
         </iron-pages>
       </app-header-layout>
@@ -145,7 +147,13 @@
         } else if (newUser.role === "INTERVIWER") {
           this.menuItems = [
             {routeName: 'alljobs', displayName: 'All Jobs'},
-            {routeName: 'appliedjobs', displayName: 'My Applied Jobs'}
+            {routeName: 'interviews', displayName: 'My Interviews'}
+          ];
+        } else if (newUser.role === "MANAGER") {
+          this.menuItems = [
+            {routeName: 'alljobs', displayName: 'All Jobs'},
+            {routeName: 'interviews', displayName: 'My Interviews'},
+            {routeName: 'results', displayName: 'Interview Results'}
           ];
         }
         if(!_.isEmpty(this.loggedInUser.role)) {

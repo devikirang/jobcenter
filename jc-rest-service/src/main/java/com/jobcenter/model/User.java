@@ -15,6 +15,10 @@ public class User {
     public User() {
     }
 
+    public User(String email) {
+        this.email = email;
+    }
+
     public User(String email, String password) {
         this.email = email;
         this.password = password;
@@ -62,6 +66,7 @@ public class User {
 
     /**
      * Default to interviewee
+     *
      * @return User Role.
      */
     public Role getRole() {
@@ -75,15 +80,10 @@ public class User {
         this.role = role;
     }
 
-    /**
-     * Returns false if the user is Recruiter or Manager.
-     *
-     * @return boolean value based on user role.
-     */
     public boolean isInterviewee() {
-        if (this.getRole() == Role.RECURITER || this.getRole() == Role.INTERVIWER) {
-            return false;
+        if (this.getRole() == Role.INTERVIEWEE) {
+            return true;
         }
-        return true;
+        return false;
     }
 }

@@ -1,9 +1,6 @@
 package com.jobcenter.web;
 
-import com.jobcenter.model.CandidateJob;
-import com.jobcenter.model.DataResponse;
-import com.jobcenter.model.Job;
-import com.jobcenter.model.User;
+import com.jobcenter.model.*;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.CandidateJobService;
 import com.jobcenter.service.JobService;
@@ -37,14 +34,25 @@ public class JobController {
         return new DataResponse(allJobs);
     }
 
-    @RequestMapping(value = "/allCandidateJobs", method = RequestMethod.POST)
+    @RequestMapping(value = "/myInterviews", method = RequestMethod.POST)
     @ResponseBody
-    public DataResponse<List<CandidateJob>> allCandidateJobs(@RequestParam(value = "jobCode") String jobCode,
-                                                             @RequestBody User requestedUser) {
-        logger.info("Getting all Candidates Job Interview Details for a specific JobCode =" + jobCode);
+    public DataResponse<List<InterviewSession>> findMyInterviewSessions(@RequestBody User interviewer) {
+        logger.info("Getting all candidates Interview Sessions conducted by an interviewer =" + interviewer.getEmail());
         try {
-            List<CandidateJob> allCandidateJobs = candidateJobService.findAllCandidateJobsByJobCode(jobCode, requestedUser);
-            return new DataResponse(allCandidateJobs);
+            List<InterviewSession> interviewSessions = candidateJobService.findMyInterviewSessions(interviewer);
+            return new DataResponse(interviewSessions);
+        } catch (BusinessException e) {
+            return new DataResponse(e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/interviewResults", method = RequestMethod.POST)
+    @ResponseBody
+    public DataResponse<List<Job>> findAllMyJobsInterviewResults(@RequestBody User managerUser) {
+        logger.info("Getting all Candidates Job Interview Details");
+        try {
+            List<Job> jobs = candidateJobService.findAllMyJobsInterviewResults(managerUser);
+            return new DataResponse(jobs);
         } catch (BusinessException e) {
             return new DataResponse(e.getMessage());
         }

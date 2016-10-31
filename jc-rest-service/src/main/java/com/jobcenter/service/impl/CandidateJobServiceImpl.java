@@ -5,10 +5,12 @@ import com.jobcenter.dao.JobDao;
 import com.jobcenter.model.*;
 import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.CandidateJobService;
+import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Created on 10/29/2016.
@@ -22,22 +24,37 @@ public class CandidateJobServiceImpl implements CandidateJobService {
     @Autowired
     private JobDao jobDao;
 
+    @Autowired
+    private JobService jobService;
+
     @Override
-    public List<CandidateJob> findAllCandidateJobsByJobCode(String jobCode, User requestedUser) throws BusinessException {
-        if (requestedUser == null || requestedUser.getRole() != Role.INTERVIWER || requestedUser.getRole() != Role.RECURITER) {
+    public List<Job> findAllMyJobsInterviewResults(User managerUser) throws BusinessException {
+        if (managerUser == null || managerUser.getRole() != Role.MANAGER) {
             throw new BusinessException("Not Authorized.");
         }
-        List<CandidateJob> candidateJobs = candidateJobDao.findAllByJobCode(jobCode);
-        Job job = jobDao.findByJobCode(jobCode);
-        for (CandidateJob candidateJob : candidateJobs) {
-            double candidateScore = calculateCandidateScore(candidateJob, job);
-            candidateJob.setCandidateScore(candidateScore);
+        List<Job> jobs = jobService.findAllByManager(managerUser);
+        for (Job job : jobs) {
+            List<CandidateJob> candidateJobs = candidateJobDao.findAllByJobCode(job.getJobCode());
+            for (CandidateJob candidateJob : candidateJobs) {
+                double candidateScore = calculateCandidateScore(candidateJob, job);
+                candidateJob.setCandidateScore(candidateScore);
+            }
+            // Sort by Score
+            Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o1.getCandidateScore()).compareTo(o2.getCandidateScore()));
+            job.setCandidateJobs(candidateJobs);
         }
-        // Sort by Score
-        Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o1.getCandidateScore()).compareTo(o2.getCandidateScore()));
-        return candidateJobs;
+        return jobs;
     }
 
+    @Override
+    public List<InterviewSession> findMyInterviewSessions(User interviewer) throws BusinessException {
+        List<CandidateJob> candidateJobs = candidateJobDao.findAll();
+        List<InterviewSession> interviewSessions = candidateJobs.stream()
+                .flatMap(candidateJob -> candidateJob.getInterviewSessions().stream())
+                .filter(interviewSession -> interviewSession.getInterviewer().getEmail().equals(interviewer.getEmail()))
+                .collect(Collectors.toList());
+        return interviewSessions;
+    }
 
     /**
      * The Algorithm to calculate Score for a candidate skill.
