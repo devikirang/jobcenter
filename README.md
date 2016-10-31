@@ -3,7 +3,7 @@
 
 ## Setup
 * Install JDK 1.8
-* [Install Spring Boot](http://docs.spring.io/spring-boot/docs/current/reference/html/)
+* [Install Spring Boot CLI](http://docs.spring.io/spring-boot/docs/current/reference/html/getting-started-installing-spring-boot.html#getting-started-installing-the-cli)
 * [Install MongoDB](https://docs.mongodb.com/manual/installation/)
 * Install NodeJS 6.9.1
 * Install `npm install -g bower`
