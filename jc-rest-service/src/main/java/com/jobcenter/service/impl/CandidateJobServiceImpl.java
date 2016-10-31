@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created on 10/29/2016.
@@ -39,6 +40,7 @@ public class CandidateJobServiceImpl implements CandidateJobService {
             }
             // Sort by Score
             Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o2.getCandidateScore()).compareTo(o1.getCandidateScore()));
+            for (int i = 0; i < candidateJobs.size(); i++) candidateJobs.get(i).setRank(i + 1);
             job.setCandidateJobs(candidateJobs);
         }
         return jobs;
@@ -55,13 +57,13 @@ public class CandidateJobServiceImpl implements CandidateJobService {
     }
 
     /**
-     * The Algorithm to calculate Score for a candidate skill.
-     * Get the average of the Skill rating from multiple interviews.
-     * Multiple the skill rating with skillWeight
-     * And finally add to the user total score.
-     * Higher the score means the candidate is the best fit for the job.
-     *
-     * @return candidate skill score.
+     * The Algorithm to calculate Score for candidate skills.
+     * Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
+     * Final Skill Score = Sum of all Skill Scores.
+     * W - Skill Weight is defied by Recruiter at the time of posting Job.
+     * R - Skill Rating is giving by Interviewer at the time of Interview Session.=
+     * Highest score candidate is the best ranked candidate for job.
+     * @return candidate skills score.
      */
     private double calculateCandidateScore(CandidateJob candidateJob, Job job) {
         Map<Skill, List<SkillRating>> candidateSkillMap = new HashMap();
