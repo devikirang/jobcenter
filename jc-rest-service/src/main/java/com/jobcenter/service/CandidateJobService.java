@@ -14,4 +14,6 @@ public interface CandidateJobService {
     List<Job> findAllMyJobsInterviewResults(User managerUser) throws BusinessException;
 
     List<InterviewSession> findMyInterviewSessions(User interviewer) throws BusinessException;
+
+    List<Job> findMyAppliedJobs(User candidate) throws BusinessException;
 }

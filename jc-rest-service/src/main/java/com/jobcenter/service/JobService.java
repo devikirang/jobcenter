@@ -14,4 +14,6 @@ public interface JobService {
     List<Job> findAllJobs();
 
     List<Job> findAllByManager(User manager);
+
+    Job findByJobCode(String jobCode);
 }

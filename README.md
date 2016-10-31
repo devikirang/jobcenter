@@ -26,8 +26,8 @@ getting-started-installing-spring-boot.html#getting-started-installing-the-cli
 * Manager and Interviewers add their rating on his/her skills and comments.- 'src/java/com.jobcenter.model.InterviewSession'
 
 ## Data 
-For time being all the Data is created in 'src/java/com.jobcenter.Application'. 
-Assume this data is submitted using UI froms by recruiter, interviewer and interviewee.
+* For time being all the Data is created in 'src/java/com.jobcenter.Application'. 
+* Assume this data is submitted using UI froms by recruiter, manager, interviewer and interviewee.
 
 ## User Role
 * INTERVIEWEE - has access to 'All Jobs', 'My Applied Jobs'
@@ -37,5 +37,9 @@ Assume this data is submitted using UI froms by recruiter, interviewer and inter
 
 ## Algorithm for Skill Ranking or Candidate Score
 * 'src/java/com.jobcenter.service.impl.CandidateJobServiceImpl' has method 'calculateCandidateScore' to calculate the skill score from multiple inteview sessions.
-* Higher the score the best candidate for the Job.
+* Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
+* Final Skill Score = Sum of all Skill Scores.
+* W - Skill Weight is defied by Recruiter at the time of posting Job.
+* R - Skill Rating is giving by Interviewer at the time of Interview Session.=
+* Highest score candidate is the best ranked candidate for job.
 * Login as MANAGER and check 'Interview Results' page for Score and Rank.

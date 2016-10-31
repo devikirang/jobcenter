@@ -15,7 +15,7 @@
     <iron-ajax  auto id="myInterviewsAjax" method="post" url="http://localhost:9090/myInterviews" body="[[user]]"handle-as="json"  content-type="application/json" on-response="_handleResponse" debounce-duration="300"></iron-ajax>
 
     <div class="card">
-      <h1>My Interview Ratings</h1>
+      <h1>My Interview Ratings of Candidates</h1>
       <p>Candidate skill ratings by me.</p>
       <template is="dom-repeat" items="[[myInterviews]]">
         <p>        

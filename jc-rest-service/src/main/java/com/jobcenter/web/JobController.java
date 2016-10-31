@@ -35,6 +35,18 @@ public class JobController {
         return new DataResponse(allJobs);
     }
 
+    @RequestMapping(value = "/myAppliedJobs", method = RequestMethod.POST)
+    @ResponseBody
+    public DataResponse<List<Job>> findMyAppliedJobs(@RequestBody User candidate) {
+        logger.info("Getting all Candidate Jobs candidate=" + candidate.getEmail());
+        try {
+            List<Job> jobs = candidateJobService.findMyAppliedJobs(candidate);
+            return new DataResponse(jobs);
+        } catch (BusinessException e) {
+            return new DataResponse(e.getMessage());
+        }
+    }
+
     @RequestMapping(value = "/myInterviews", method = RequestMethod.POST)
     @ResponseBody
     public DataResponse<List<InterviewSession>> findMyInterviewSessions(@RequestBody User interviewer) {
@@ -50,7 +62,7 @@ public class JobController {
     @RequestMapping(value = "/interviewResults", method = RequestMethod.POST)
     @ResponseBody
     public DataResponse<List<Job>> findAllMyJobsInterviewResults(@RequestBody User managerUser) {
-        logger.info("Getting all Candidates Job Interview Details");
+        logger.info("Getting all Candidates Job Interview Results to compare.");
         try {
             List<Job> jobs = candidateJobService.findAllMyJobsInterviewResults(managerUser);
             return new DataResponse(jobs);

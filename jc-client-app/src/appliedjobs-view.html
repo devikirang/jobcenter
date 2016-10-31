@@ -1,15 +1,7 @@
-<!--
-@license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="lodash.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="appliedjobs-view">
   <template>
@@ -20,17 +12,58 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         padding: 10px;
       }
     </style>
+    <iron-ajax  auto id="myAppliedJobsAjax" method="get" url="http://localhost:9090/myAppliedJobs" handle-as="json" body="[[user]]" content-type="application/json" on-response="_handleResponse" debounce-duration="300"></iron-ajax>
 
     <div class="card">
-      <h1>Login</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>My Applied Jobs</h1>
+      <p>        
+        <table>
+          <caption>Jobs that you applied.</caption>
+          <thead>
+            <tr>
+              <th>Job Code</th>
+              <th>Job Heading</th>
+              <th>Job Required Skills</th>
+              <th>Recruiter</th>
+              <th>Location</th>              
+            </tr>
+          </thead>
+          <tbody>
+            <template is="dom-repeat" items="{{myAppliedJobs}}">          
+              <tr>
+                <td>[[item.jobCode]]</td>
+                <td>[[item.heading]]</td>
+                <td width="40%">[[item.skillsDesc]]</td>
+                <td>[[item.recruiter.email]]</td>
+                <td>[[item.jobLocation.city]]</td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+        <ul>
+          
+        </ul>        
+      </p>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'appliedjobs-view'
+      is: 'appliedjobs-view',
+      _handleResponse: function(request) {      
+        var myResponse = request.detail.response;
+        if (!_.isEmpty(myResponse.result)) {
+            var myAppliedJobs = myResponse.result;
+            _.each(myAppliedJobs, function(job) {
+                job.skillsDesc = _.chain(job.weighedSkills).map(function(weighedSkill) {
+                  return _.startCase(weighedSkill.skill.toLowerCase());
+                }).reduce(function(sum, skillName) {
+                  return sum + ', ' + skillName;
+                }).value();
+            });
+            this.set('myAppliedJobs', myResponse.result);
+        }
+      }
     });
   </script>
-<Loginule>
+</dom-module>

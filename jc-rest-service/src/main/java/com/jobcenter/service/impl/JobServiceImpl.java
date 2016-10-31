@@ -42,4 +42,9 @@ public class JobServiceImpl implements JobService {
         List<Job> jobs = jobDao.findAll(Example.of(job));
         return jobs;
     }
+
+    @Override
+    public Job findByJobCode(String jobCode) {
+        return jobDao.findByJobCode(jobCode);
+    }
 }

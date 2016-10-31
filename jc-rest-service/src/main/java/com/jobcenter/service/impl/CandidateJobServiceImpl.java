@@ -6,6 +6,7 @@ import com.jobcenter.service.BusinessException;
 import com.jobcenter.service.CandidateJobService;
 import com.jobcenter.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -56,6 +57,15 @@ public class CandidateJobServiceImpl implements CandidateJobService {
         return interviewSessions;
     }
 
+    @Override
+    public List<Job> findMyAppliedJobs(User candidate) throws BusinessException {
+        CandidateJob example = new CandidateJob();
+        example.setCandidate(new User(candidate.getEmail()));
+        List<CandidateJob> candidateJobs = candidateJobDao.findAll(Example.of(example));
+        return candidateJobs.stream().map(candidateJob -> jobService.findByJobCode(candidateJob.getJobCode()))
+                .collect(Collectors.toList());
+    }
+
     /**
      * The Algorithm to calculate Score for candidate skills.
      * Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
@@ -63,6 +73,7 @@ public class CandidateJobServiceImpl implements CandidateJobService {
      * W - Skill Weight is defied by Recruiter at the time of posting Job.
      * R - Skill Rating is giving by Interviewer at the time of Interview Session.=
      * Highest score candidate is the best ranked candidate for job.
+     *
      * @return candidate skills score.
      */
     private double calculateCandidateScore(CandidateJob candidateJob, Job job) {
