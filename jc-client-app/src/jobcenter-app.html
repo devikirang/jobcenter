@@ -82,6 +82,7 @@
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
             <div main-title>Job Center</div>
+            <paper-icon-button icon="close" on-tap="_handleLogout"></paper-icon-button>
           </app-toolbar>
         </app-header>
         <div class="user-data">{{loggedInUser.name}} - {{loggedInUser.role}}</div>
@@ -130,10 +131,27 @@
           {routeName: 'login', displayName: 'Login'},
           {routeName: 'register', displayName: 'Register'}
         ];
+        this.set('route.path', 'login');
+        this._pageChanged('login');
       },
 
       _loggedInUserChanged: function(newUser) {
         console.log('User changed.');
+        this._populateMenu(newUser);
+        if(!_.isEmpty(this.loggedInUser.role)) {
+            this.set('route.path', 'alljobs');
+            this._pageChanged('alljobs');
+        } else {
+          this.set('route.path', 'login');
+          this._pageChanged('login');
+        }
+      },
+
+      _handleLogout: function() {
+          this.set('loggedInUser', {});
+      },
+
+      _populateMenu: function(newUser) {
         if (newUser.role === "INTERVIEWEE") {
           this.menuItems = [
             {routeName: 'alljobs', displayName: 'All Jobs'},
@@ -155,13 +173,6 @@
             {routeName: 'interviews', displayName: 'My Interviews'},
             {routeName: 'results', displayName: 'Interview Results'}
           ];
-        }
-        if(!_.isEmpty(this.loggedInUser.role)) {
-            this.set('route.path', 'alljobs');
-            this._pageChanged('alljobs');
-        } else {
-            this.set('route.path', 'login');
-            this._pageChanged('login');
         }
       },
 

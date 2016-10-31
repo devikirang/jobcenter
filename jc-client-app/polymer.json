@@ -6,6 +6,8 @@
     "src/register-view.html",
     "src/alljobs-view.html",
     "src/appliedjobs-view.html",
+    "src/interviews-view.html",
+    "src/results-view.html",
     "src/no-view.html"
     "src/lowdash.html"
   ],
