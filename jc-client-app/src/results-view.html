@@ -24,10 +24,11 @@
         <br>
         Final Skill Score = Sum of all Skill Scores.
         <br>
-        W - Skill Weight is defied by Recruiter at the time of posting Job.
-        R - Skill Rating is giving by Interviewer at the time of Interview Session.                
-
+        W - Skill Weight is defined by Recruiter at the time of posting Job.
+        <br>
+        R - Skill Rating is given by Interviewer at the time of Interview Session.
       </p>
+      <hr>
       <template is="dom-repeat" items="[[interviewResults]]">
         <p>        
           <div>Job: <strong>[[item.jobCode]] - [[item.heading]]</strong></div>
@@ -39,7 +40,6 @@
                 <th>Rank</th>
                 <th>Candidate Name</th>
                 <th>Candidate Email</th>
-                <th>Notes</th>
                 <th>Skills Score</th>
               </tr>
             </thead>
@@ -49,7 +49,6 @@
                   <td>[[candidateJob.rank]]</td>
                   <td>[[candidateJob.candidate.name]]</td>
                   <td>[[candidateJob.candidate.email]]</td>
-                  <td>[[candidateJob.notes]]</td>
                   <td>[[candidateJob.candidateScore]]</td>
                 </tr>
               </template>

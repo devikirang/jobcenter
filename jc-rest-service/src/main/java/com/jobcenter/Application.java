@@ -52,13 +52,13 @@ public class Application implements CommandLineRunner {
         candidateJobDao.deleteAll();
         // Step 1: candidates apply for Job Position.
         logger.info("Data: Applying for Jobs");
-        User candidate1 = this.userDao.findByEmail("test.cadidate1@gmail.com");
+        User candidate1 = this.userDao.findByEmail("test.candidate1@gmail.com");
         CandidateJob candidateJob1 = this.applyToJob(candidate1, "JAVA0T");
 
-        User candidate2 = this.userDao.findByEmail("test.cadidate2@gmail.com");
+        User candidate2 = this.userDao.findByEmail("test.candidate2@gmail.com");
         CandidateJob candidateJob2 = this.applyToJob(candidate2, "JAVA0T");
 
-        User candidate3 = this.userDao.findByEmail("test.cadidate3@gmail.com");
+        User candidate3 = this.userDao.findByEmail("test.candidate3@gmail.com");
         CandidateJob candidateJob3 = this.applyToJob(candidate3, "JAVA0T");
 
         //Step 2: Interview Sessions for Candidates.
@@ -76,10 +76,10 @@ public class Application implements CommandLineRunner {
     private void registerUsers() throws BusinessException {
         logger.info("Data: Registering Users");
         userDao.deleteAll();
-        userService.registerUser(new User("test.cadidate1@gmail.com", "test", "DeviKiran", Role.INTERVIEWEE));
-        userService.registerUser(new User("test.cadidate2@gmail.com", "test", "Dhanush", Role.INTERVIEWEE));
-        userService.registerUser(new User("test.cadidate3@gmail.com", "test", "Krishna", Role.INTERVIEWEE));
-        userService.registerUser(new User("test.recruiter@jobcorp.com", "test", "Frank", Role.RECURITER));
+        userService.registerUser(new User("test.candidate1@gmail.com", "test", "DeviKiran", Role.INTERVIEWEE));
+        userService.registerUser(new User("test.candidate2@gmail.com", "test", "Dhanush", Role.INTERVIEWEE));
+        userService.registerUser(new User("test.candidate3@gmail.com", "test", "Krishna", Role.INTERVIEWEE));
+        userService.registerUser(new User("test.recruiter@jobcorp.com", "test", "Frank", Role.RECRUITER));
         userService.registerUser(new User("test.manager@jobcorp.com", "test", "John", Role.MANAGER));
         userService.registerUser(new User("test.interviewer1@jobcorp.com", "test", "David", Role.INTERVIWER));
         userService.registerUser(new User("test.interviewer2@jobcorp.com", "test", "Joseph", Role.INTERVIWER));

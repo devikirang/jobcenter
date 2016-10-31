@@ -127,12 +127,16 @@
 
       ready: function() {
         this.set('loggedInUser', {});
+        this._initMenu();
+        this.set('route.path', 'login');
+        this._pageChanged('login');
+      },
+
+      _initMenu: function() {
         this.menuItems = [
           {routeName: 'login', displayName: 'Login'},
           {routeName: 'register', displayName: 'Register'}
         ];
-        this.set('route.path', 'login');
-        this._pageChanged('login');
       },
 
       _loggedInUserChanged: function(newUser) {
@@ -149,6 +153,7 @@
 
       _handleLogout: function() {
           this.set('loggedInUser', {});
+          this._initMenu();
       },
 
       _populateMenu: function(newUser) {
@@ -157,7 +162,7 @@
             {routeName: 'alljobs', displayName: 'All Jobs'},
             {routeName: 'appliedjobs', displayName: 'My Applied Jobs'}
           ];
-        } else if (newUser.role === "RECURITER") {
+        } else if (newUser.role === "RECRUITER") {
           this.menuItems = [
             {routeName: 'alljobs', displayName: 'All Jobs'},
             {routeName: 'postjob', displayName: 'Post New Job'}

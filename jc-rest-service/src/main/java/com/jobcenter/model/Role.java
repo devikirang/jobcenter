@@ -1,7 +1,7 @@
 package com.jobcenter.model;
 
 public enum Role {
-    RECURITER,
+    RECRUITER,
     INTERVIWER, // Interviewer or Manager.
     INTERVIEWEE,
     MANAGER

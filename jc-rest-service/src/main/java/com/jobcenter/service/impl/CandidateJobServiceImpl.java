@@ -70,8 +70,8 @@ public class CandidateJobServiceImpl implements CandidateJobService {
      * The Algorithm to calculate Score for candidate skills.
      * Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
      * Final Skill Score = Sum of all Skill Scores.
-     * W - Skill Weight is defied by Recruiter at the time of posting Job.
-     * R - Skill Rating is giving by Interviewer at the time of Interview Session.=
+     * W - Skill Weight is defined by Recruiter at the time of posting Job.
+     * R - Skill Rating is given by Interviewer at the time of Interview Session.
      * Highest score candidate is the best ranked candidate for job.
      *
      * @return candidate skills score.
