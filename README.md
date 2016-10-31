@@ -8,13 +8,15 @@
 * Install NodeJS 6.9.1
 * Install `npm install -g bower`
 * Install `npm install -g polymer-cli`
-* Run `mvn package` in folder jc-server-app. Any error check for proxy settings for maven.
+* Run `mvn package` in folder jc-rest-service. Any error check for proxy settings for maven.
 * Run `bower install` in folder jc-client-app. Any error check for proxy settings for bower, github, npm.
 
 ## Starting DB, server app and client app
-* Start mangodb with command `mongod`. Runs DB on port - 27017
-* Start rest service from folder jc-rest-service with command `mvn spring-boot:run`. Runs Tomcat on port 9090
-* Start client web app from folder jc-client-app with command `polymer serve`. Runs Web on port 8080
+* Start mangodb with command `mongod`. Runs DB on port 27017.
+* Start rest service from folder jc-rest-service with command `mvn spring-boot:run`. Runs Tomcat on port 9090.
+* Start client web app from folder jc-client-app with command `polymer serve`. Runs Web on port 8080.
+
+**Note**: Use the above ports and same order to start the application.
 
 ## Application Domain
 * Access application from http://localhost:8080/login
@@ -39,6 +41,6 @@
 * Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
 * Final Skill Score = Sum of all Skill Scores.
 * W - Skill Weight is defined by Recruiter at the time of posting Job.
-* R - Skill Rating is given by Interviewer at the time of Interview Session.=
+* R - Skill Rating is given by Interviewer at the time of Interview Session.
 * Highest score candidate is the best ranked candidate for job.
 * Login as MANAGER and check 'Interview Results' page for Score and Rank.
