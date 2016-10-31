@@ -58,7 +58,7 @@ public class Application implements CommandLineRunner {
         User candidate2 = this.userDao.findByEmail("test.cadidate2@gmail.com");
         CandidateJob candidateJob2 = this.applyToJob(candidate2, "JAVA0T");
 
-        User candidate3 = this.userDao.findByEmail("test.cadidate1@gmail.com");
+        User candidate3 = this.userDao.findByEmail("test.cadidate3@gmail.com");
         CandidateJob candidateJob3 = this.applyToJob(candidate3, "JAVA0T");
 
         //Step 2: Interview Sessions for Candidates.
@@ -77,7 +77,7 @@ public class Application implements CommandLineRunner {
         logger.info("Data: Registering Users");
         userDao.deleteAll();
         userService.registerUser(new User("test.cadidate1@gmail.com", "test", "DeviKiran", Role.INTERVIEWEE));
-        userService.registerUser(new User("test.cadidate2@gmail.com", "test", "Dean", Role.INTERVIEWEE));
+        userService.registerUser(new User("test.cadidate2@gmail.com", "test", "Dhanush", Role.INTERVIEWEE));
         userService.registerUser(new User("test.cadidate3@gmail.com", "test", "Krishna", Role.INTERVIEWEE));
         userService.registerUser(new User("test.recruiter@jobcorp.com", "test", "Frank", Role.RECURITER));
         userService.registerUser(new User("test.manager@jobcorp.com", "test", "John", Role.MANAGER));
@@ -95,11 +95,11 @@ public class Application implements CommandLineRunner {
         Job job1 = new Job("JAVA0T", "Sr. Developer", "Test Job Description", recruiter, manager, location1);
         job1.setWeighedSkills(new ArrayList(Arrays.asList(
                 new WeighedSkill(Skill.JAVA, 5),
-                new WeighedSkill(Skill.JAVASCRIPT, 3),
-                new WeighedSkill(Skill.BEHAVIOURAL_INTERVIEW, 4),
-                new WeighedSkill(Skill.COMMUNICATION, 4),
-                new WeighedSkill(Skill.LINUX, 3),
-                new WeighedSkill(Skill.DATABASE, 4)
+                new WeighedSkill(Skill.JAVASCRIPT, 4),
+                new WeighedSkill(Skill.BEHAVIOURAL_INTERVIEW, 3),
+                new WeighedSkill(Skill.COMMUNICATION, 3),
+                new WeighedSkill(Skill.LINUX, 5),
+                new WeighedSkill(Skill.DATABASE, 5)
         )));
         jobDao.save(job1);
 
@@ -136,10 +136,10 @@ public class Application implements CommandLineRunner {
         // Interview Session 2
         InterviewSession session2 = new InterviewSession(interviewer2, candidateJob1.getCandidate(), new ArrayList(Arrays.asList(
                 new SkillRating(Skill.JAVA, 5),
-                new SkillRating(Skill.JAVASCRIPT, 4),
+                new SkillRating(Skill.JAVASCRIPT, 5),
                 new SkillRating(Skill.BEHAVIOURAL_INTERVIEW, 4),
                 new SkillRating(Skill.COMMUNICATION, 4),
-                new SkillRating(Skill.LINUX, 3),
+                new SkillRating(Skill.LINUX, 4),
                 new SkillRating(Skill.DATABASE, 4)
         )));
         session2.setComments("Performed above average");

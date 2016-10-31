@@ -1,0 +1,76 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="lodash.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="results-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <iron-ajax  auto id="interviewResultsAjax" method="post" url="http://localhost:9090/interviewResults" body="[[user]]"handle-as="json"  content-type="application/json" on-response="_handleResponse" debounce-duration="300"></iron-ajax>
+
+    <div class="card">
+      <h1>Candidate Interview Results</h1>
+      <p>
+        <strong>Algorithm for score</strong>
+        Hight score candidate is the best ranked candidate for job.
+        <br>
+        Each Skill Score = Skill Weight(W) * (average Skill Rating(R) by Interviewers)
+        <br>
+        Final Skill Score = Sum of all Skill Scores.
+        <br>
+        W - Skill Weight is defied by Recruiter at the time of posting Job.
+        R - Skill Rating is giving by Interviewer at the time of Interview Session.                
+
+      </p>
+      <template is="dom-repeat" items="[[interviewResults]]">
+        <p>        
+          <div>Job: <strong>[[item.jobCode]] - [[item.heading]]</strong></div>
+          <div>Job Location: <strong>[[item.jobLocation.address]] - [[item.jobLocation.city]]</strong></div>
+          <div>Job Recruiter: <strong>[[item.recruiter.name]]</strong> - [[item.recruiter.email]]</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Candidate Name</th>
+                <th>Candidate Email</th>
+                <th>Notes</th>
+                <th>Skills Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template is="dom-repeat" items="[[item.candidateJobs]]" as="candidateJob">
+                <tr>
+                  <td>[[candidateJob.rank]]</td>
+                  <td>[[candidateJob.candidate.name]]</td>
+                  <td>[[candidateJob.candidate.email]]</td>
+                  <td>[[candidateJob.notes]]</td>
+                  <td>[[candidateJob.candidateScore]]</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>    
+        </p>
+        <hr>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'results-view',
+      _handleResponse: function(request) {      
+        var myResponse = request.detail.response;
+        if (!_.isEmpty(myResponse.result)) {
+            var interviewResults = myResponse.result;
+            this.set('interviewResults', myResponse.result);
+        }
+      }
+    });
+  </script>
+</dom-module>

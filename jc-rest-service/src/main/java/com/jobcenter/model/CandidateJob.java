@@ -18,7 +18,12 @@ public class CandidateJob {
     private Date scheduledDate;
     private List<InterviewSession> interviewSessions;
     private String notes;
+
+    @Transient
     private double candidateScore;
+
+    @Transient
+    private int rank;
 
     public CandidateJob() {
     }
@@ -94,5 +99,13 @@ public class CandidateJob {
 
     public void setCandidateScore(double candidateScore) {
         this.candidateScore = candidateScore;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
     }
 }

@@ -1,0 +1,58 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+<link rel="import" href="lodash.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="interviews-view">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+
+        padding: 10px;
+      }
+    </style>
+    <iron-ajax  auto id="myInterviewsAjax" method="post" url="http://localhost:9090/myInterviews" body="[[user]]"handle-as="json"  content-type="application/json" on-response="_handleResponse" debounce-duration="300"></iron-ajax>
+
+    <div class="card">
+      <h1>My Interview Ratings</h1>
+      <p>Candidate skill ratings by me.</p>
+      <template is="dom-repeat" items="[[myInterviews]]">
+        <p>        
+          <div>Candidate <strong>[[item.candidate.name]] - [[item.candidate.email]]</strong></div>
+          <div>Comment: <strong>[[item.comments]]</strong></div>
+          <table>
+            <thead>
+              <tr>
+                <th>Candidate Skill</th>
+                <th>My Rating (0-5)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template is="dom-repeat" items="[[item.skillRatings]]" as="skillRating">
+                <tr>
+                  <td>[[skillRating.skill]]</td>
+                  <td>[[skillRating.rating]]</td>
+                </tr>
+              </template>
+            </tbody>
+          </table>    
+        </p>
+        <hr>
+      </template>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'interviews-view',
+      _handleResponse: function(request) {      
+        var myResponse = request.detail.response;
+        if (!_.isEmpty(myResponse.result)) {
+            var myInterviews = myResponse.result;            
+            this.set('myInterviews', myResponse.result);
+        }
+      }
+    });
+  </script>
+</dom-module>

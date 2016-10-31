@@ -40,7 +40,7 @@ public class CandidateJobServiceImpl implements CandidateJobService {
                 candidateJob.setCandidateScore(candidateScore);
             }
             // Sort by Score
-            Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o1.getCandidateScore()).compareTo(o2.getCandidateScore()));
+            Collections.sort(candidateJobs, (o1, o2) -> Double.valueOf(o2.getCandidateScore()).compareTo(o1.getCandidateScore()));
             job.setCandidateJobs(candidateJobs);
         }
         return jobs;

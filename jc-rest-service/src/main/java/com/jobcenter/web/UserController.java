@@ -1,7 +1,5 @@
 package com.jobcenter.web;
 
-import com.jobcenter.model.Job;
-import com.jobcenter.model.Role;
 import com.jobcenter.model.DataResponse;
 import com.jobcenter.model.User;
 import com.jobcenter.service.BusinessException;
@@ -11,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -59,10 +56,5 @@ public class UserController {
             logger.error("Login failed", e);
             return new DataResponse(e.getMessage());
         }
-    }/*
-
-    @ModelAttribute
-    public void setVaryResponseHeader(HttpServletResponse response) {
-        response.setHeader("Vary", "Accept");
-    }*/
+    }
 }
